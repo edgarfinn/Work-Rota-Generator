@@ -1,0 +1,23 @@
+{
+  "name": "work-rota-generator",
+  "version": "1.0.0",
+  "description": "Business As Usual - Work Rota Generator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgarfinn/Work-Rota-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edgarfinn/Work-Rota-Generator/issues"
+  },
+  "homepage": "https://github.com/edgarfinn/Work-Rota-Generator#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
