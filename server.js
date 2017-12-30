@@ -13,7 +13,7 @@ app.get('/api', (req, res) => {
 
 
   // Return
-  res.send('Welcome to API');
+  res.json('Express APIs message');
 });
 
 
