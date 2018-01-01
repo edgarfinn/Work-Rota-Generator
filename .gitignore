@@ -1,6 +1,7 @@
 node_modules
 Dev Notes.txt
 npm-debug.log*
+Prototype
 
 # dependencies
 /client/node_modules
