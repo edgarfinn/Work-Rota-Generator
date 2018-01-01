@@ -1,3 +1,29 @@
 .App {
   text-align: center;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.border {
+  border: 5px solid black;
+}
+
+.red {
+  border: 3px solid tomato;
+}
+
+.yellow {
+  border: 3px solid yellow;
+}
+
+.blue {
+  border: 3px solid aqua;
 }

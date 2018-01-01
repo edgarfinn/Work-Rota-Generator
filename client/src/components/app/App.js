@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Grid.css';
 
-class App extends Component {
+import Rota from './Rota/rota.js';
+import Wheel from './Wheel/wheel.js';
+import StaffList from './StaffList/staff_list.js';
+
+export default class App extends Component {
 
   constructor(props) {
     super(props)
@@ -28,16 +33,18 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
-        <p>
-          Welcome to client-side!
-        </p>
-        <button onClick={this.contactApi} >Get Message</button>
-        {this.state.message &&
-        <p>{this.state.message}</p>}
+      <div className="App red">
+        <header><h1 className="page-title">BAU Rota Generator</h1></header>
+        <section className="section-rota large-show-inlineblock large-3 red">
+          <Rota />
+        </section>
+        <section className="section-wheel large-show-inlineblock large-4 yellow">
+          <Wheel />
+        </section>
+        <section class="section-staff-list large-show-inlineblock large-3 blue">
+          <StaffList />
+        </section>
       </div>
     );
   }
 }
-
-export default App;
