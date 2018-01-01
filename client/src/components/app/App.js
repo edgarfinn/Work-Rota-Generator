@@ -34,16 +34,24 @@ export default class App extends Component {
 
     return (
       <div className="App red">
+
         <header><h1 className="page-title">BAU Rota Generator</h1></header>
-        <section className="section-rota large-show-inlineblock large-3 red">
-          <Rota />
-        </section>
-        <section className="section-wheel large-show-inlineblock large-4 yellow">
-          <Wheel />
-        </section>
-        <section class="section-staff-list large-show-inlineblock large-3 blue">
-          <StaffList />
-        </section>
+
+        <div className="app-content red">
+          <section className="section-rota large-show-inlineblock large-3 large-offset-0 red">
+            <Rota />
+          </section>
+
+          <section className="section-wheel large-show-inlineblock large-4 yellow">
+            <Wheel />
+          </section>
+
+          <section class="section-staff-list large-show-inlineblock large-3 blue">
+            <StaffList />
+          </section>
+
+        </div>
+
       </div>
     );
   }
