@@ -33,12 +33,12 @@ export default class App extends Component {
   render() {
 
     return (
-      <div className="App red">
+      <div className="App">
 
         <header><h1 className="page-title">BAU Rota Generator</h1></header>
 
-        <div className="app-content red">
-          <section className="section-rota large-show-inlineblock large-3 large-offset-0 red">
+        <div className="app-content">
+          <section className="section-rota large-show-inlineblock large-3 large-offset-0 border">
             <Rota />
           </section>
 
@@ -46,7 +46,7 @@ export default class App extends Component {
             <Wheel />
           </section>
 
-          <section class="section-staff-list large-show-inlineblock large-3 blue">
+          <section className="section-staff-list large-show-inlineblock large-3 blue">
             <StaffList />
           </section>
 

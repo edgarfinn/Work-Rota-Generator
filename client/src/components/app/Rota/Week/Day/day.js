@@ -4,8 +4,11 @@ import './day.css';
 export default (props) => {
 
   const HalfDay = (props) => {
+
+    const periodIsAM = props.period === "AM";
+
     return (
-      <div className="period">
+      <div className={ periodIsAM ? "period bottom-border" : "period" }>
         <div className="period-header large-2 large-show-inlineblock">
           {props.period}
         </div>
@@ -16,13 +19,13 @@ export default (props) => {
 
 
   return (
-    <div className="rota-day blue">
-      <p className="day-header">{props.workDay}</p>
-      <div classname="half-day">
+    <div className="rota-day">
+      <p className="day-title bottom-border">{props.workDay}</p>
+      <div className="half-day-wrapper">
         <HalfDay period="AM"/>
         <HalfDay period="PM"/>
       </div>
-      <div classname="half-day">
+      <div className="half-day">
 
       </div>
     </div>

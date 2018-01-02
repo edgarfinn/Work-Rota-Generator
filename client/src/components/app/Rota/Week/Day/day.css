@@ -1,1 +1,35 @@
+/* ========== Day ========== */
+/* ========================= */
+.rota-day {
+  height: 20%;
+  box-sizing: border-box;
+  border: 1px solid lightgrey;
+}
 
+.day-title {
+  padding: 0.1em;
+  max-height: 20%;
+  min-height: 18px;
+}
+
+.bottom-border {
+  border-bottom: 1px solid lightgrey;
+}
+
+.half-day-wrapper {
+  height: 80%;
+}
+
+
+/* ======== End Day ======== */
+/* ========================= */
+
+/* ======== HalfDay ======== */
+/* ========================= */
+
+.period {
+  height: 50%;
+}
+
+/* ====== End HalfDay ====== */
+/* ========================= */

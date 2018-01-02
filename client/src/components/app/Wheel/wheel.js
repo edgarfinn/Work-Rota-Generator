@@ -5,7 +5,7 @@ export default class Wheel extends Component {
   render() {
     return (
       <div>
-        <header>
+        <header className="section-header">
           <h2>Wheel of Fortune</h2>
         </header>
       </div>

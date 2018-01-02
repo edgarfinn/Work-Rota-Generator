@@ -4,7 +4,7 @@ export default class StaffList extends Component {
 
   render() {
     return (
-      <header><h2>Staff List</h2></header>
+      <header className="section-header"><h2>Staff List</h2></header>
     )
   }
 }
