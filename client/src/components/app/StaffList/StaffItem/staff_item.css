@@ -1,0 +1,8 @@
+.developer-list-item {
+  width: 100%;
+  border-bottom: 1px solid grey;
+}
+.developer-name {
+  border-top: 2px solid lightgrey;
+  padding: 1em;
+}

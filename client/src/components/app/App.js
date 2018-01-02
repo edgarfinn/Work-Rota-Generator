@@ -143,6 +143,18 @@ export default class App extends Component {
             }
           ]
         }
+      ],
+      devList: [
+        "Developer One",
+        "Developer Two",
+        "Developer Three",
+        "Developer Four",
+        "Developer Five",
+        "Developer Six",
+        "Developer Seven",
+        "Developer Eight",
+        "Developer Nine",
+        "Developer Ten"
       ]
     }
 
@@ -175,8 +187,10 @@ export default class App extends Component {
             <Wheel/>
           </section>
 
-          <section className="section-staff-list large-show-inlineblock large-3 blue">
-            <StaffList/>
+          <section className="section-staff-list large-show-inlineblock large-3 border">
+            <StaffList
+              developers={this.state.devList}
+            />
           </section>
 
         </div>
