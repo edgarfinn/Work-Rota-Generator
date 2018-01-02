@@ -1,6 +1,7 @@
 /* ========== Day ========== */
 /* ========================= */
 .rota-day {
+  position: relative;
   height: 20%;
   box-sizing: border-box;
   border: 1px solid lightgrey;
@@ -29,6 +30,27 @@
 
 .period {
   height: 50%;
+  position: relative;
+}
+
+.period-header {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+.AM {
+  color: orange;
+}
+
+.PM {
+  color: purple;
+}
+
+.period-allocation {
+  margin-top: 1em;
 }
 
 /* ====== End HalfDay ====== */

@@ -2,15 +2,22 @@ import React from 'react';
 import './rota.css';
 import Week from './Week/week';
 
-export default () => {
+export default (props) => {
+  const fullRota = props.rota;
+  // console.log(fullRota);
+
   return (
     <div className="rota-contents fill-height">
       <header className="section-header">
         <h2>Work Rota</h2>
       </header>
       <div className="weeks-wrapper">
-        <Week weekNumber="Week One" />
-        <Week weekNumber="Week Two" />
+        <Week
+          weekRota={fullRota[0]}
+        />
+        <Week
+          weekRota={fullRota[1]}
+        />
       </div>
     </div>
   )
