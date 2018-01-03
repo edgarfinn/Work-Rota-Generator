@@ -12,10 +12,17 @@ export default class StaffList extends Component {
   render() {
 
     const developerList = this.props.developers.map((developer, index) => {
+
+      // console.log(developer);
+
+      const devKey = developer.devKey;
+
       return (
         <StaffItem
-        key={index}
-        developer={developer}
+        key={devKey}
+        devKey={devKey}
+        devName={developer.devName}
+        onDevNameChange={this.props.onDevNameChange}
       />
       )
     })

@@ -27,8 +27,7 @@ export default class App extends Component {
                   "allocation": "Developer Two"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Tuesday",
               "periods": [
                 {
@@ -39,8 +38,7 @@ export default class App extends Component {
                   "allocation": "Developer Four"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Wednesday",
               "periods": [
                 {
@@ -51,8 +49,7 @@ export default class App extends Component {
                   "allocation": "Developer Six"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Thursday",
               "periods": [
                 {
@@ -63,8 +60,7 @@ export default class App extends Component {
                   "allocation": "Developer Eight"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Friday",
               "periods": [
                 {
@@ -77,8 +73,7 @@ export default class App extends Component {
               ]
             }
           ]
-        },
-        {
+        }, {
           "weekNumber": "Two",
           "schedule": [
             {
@@ -92,8 +87,7 @@ export default class App extends Component {
                   "allocation": "Developer 2"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Tuesday",
               "periods": [
                 {
@@ -104,8 +98,7 @@ export default class App extends Component {
                   "allocation": "Developer 4"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Wednesday",
               "periods": [
                 {
@@ -116,8 +109,7 @@ export default class App extends Component {
                   "allocation": "Developer 6"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Thursday",
               "periods": [
                 {
@@ -128,8 +120,7 @@ export default class App extends Component {
                   "allocation": "Developer 8"
                 }
               ]
-            },
-            {
+            }, {
               "dayTitle": "Friday",
               "periods": [
                 {
@@ -145,21 +136,40 @@ export default class App extends Component {
         }
       ],
       devList: [
-        "Developer One",
-        "Developer Two",
-        "Developer Three",
-        "Developer Four",
-        "Developer Five",
-        "Developer Six",
-        "Developer Seven",
-        "Developer Eight",
-        "Developer Nine",
-        "Developer Ten"
+        {
+          "devKey": "Developer One",
+          "devName": null
+        }, {
+          "devKey": "Developer Two",
+          "devName": null
+        }, {
+          "devKey": "Developer Three",
+          "devName": null
+        }, {
+          "devKey": "Developer Four",
+          "devName": null
+        }, {
+          "devKey": "Developer Five",
+          "devName": null
+        }, {
+          "devKey": "Developer Six",
+          "devName": null
+        }, {
+          "devKey": "Developer Seven",
+          "devName": null
+        }, {
+          "devKey": "Developer Eight",
+          "devName": null
+        }, {
+          "devKey": "Developer Nine",
+          "devName": null
+        }, {
+          "devKey": "Developer Ten",
+          "devName": null
+        }
       ]
     }
-
     this.contactApi = this.contactApi.bind(this);
-
   }
 
   contactApi() {
@@ -168,7 +178,30 @@ export default class App extends Component {
     );
   }
 
+  editDevName(devKey, newDevName) {
+    // console.log('devKey: ',devKey);
+    // console.log('onDevNameChange this: ', this);
+
+
+    const currentState = this.state;
+
+    const newDevList = currentState.devList.map(dev => {
+      const newDev = dev;
+
+      if (devKey === dev.devKey) {
+        newDev.devName = newDevName;
+        // console.log('>',devKey);
+      }
+      return (newDev)
+    })
+
+    currentState.devList = newDevList;
+
+    this.setState({currentState});
+  }
+
   render() {
+    console.log('new state :',this.state);
 
     return (
       <div className="App">
@@ -190,6 +223,7 @@ export default class App extends Component {
           <section className="section-staff-list large-show-inlineblock large-3 border">
             <StaffList
               developers={this.state.devList}
+              onDevNameChange={(devKey,newDevName)=>{this.editDevName(devKey,newDevName)}}
             />
           </section>
 
