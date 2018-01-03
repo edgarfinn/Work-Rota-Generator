@@ -7,7 +7,7 @@ export default (props) => {
   // console.log(fullRota);
 
   return (
-    <div className="rota-contents fill-height">
+    <div className="rota fill-height">
       <header className="section-header">
         <h2>Work Rota</h2>
       </header>

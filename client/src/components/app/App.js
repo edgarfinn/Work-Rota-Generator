@@ -21,10 +21,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer One"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer Two"
+                  "allocation": null
                 }
               ]
             }, {
@@ -32,10 +32,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer Three"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer Four"
+                  "allocation": null
                 }
               ]
             }, {
@@ -43,10 +43,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer Five"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer Six"
+                  "allocation": null
                 }
               ]
             }, {
@@ -54,10 +54,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer Seven"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer Eight"
+                  "allocation": null
                 }
               ]
             }, {
@@ -65,10 +65,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer Nine"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer Ten"
+                  "allocation": null
                 }
               ]
             }
@@ -81,10 +81,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer 1"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer 2"
+                  "allocation": null
                 }
               ]
             }, {
@@ -92,10 +92,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer 3"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer 4"
+                  "allocation": null
                 }
               ]
             }, {
@@ -103,10 +103,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer 5"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer 6"
+                  "allocation": null
                 }
               ]
             }, {
@@ -114,10 +114,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer 7"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer 8"
+                  "allocation": null
                 }
               ]
             }, {
@@ -125,10 +125,10 @@ export default class App extends Component {
               "periods": [
                 {
                   "periodTitle": "AM",
-                  "allocation": "Developer 9"
+                  "allocation": null
                 }, {
                   "periodTitle": "PM",
-                  "allocation": "Developer 10"
+                  "allocation": null
                 }
               ]
             }
@@ -179,9 +179,6 @@ export default class App extends Component {
   }
 
   editDevName(devKey, newDevName) {
-    // console.log('devKey: ',devKey);
-    // console.log('onDevNameChange this: ', this);
-
 
     const currentState = this.state;
 
@@ -190,7 +187,6 @@ export default class App extends Component {
 
       if (devKey === dev.devKey) {
         newDev.devName = newDevName;
-        // console.log('>',devKey);
       }
       return (newDev)
     })
@@ -201,7 +197,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('new state :',this.state);
 
     return (
       <div className="App">
@@ -212,15 +207,15 @@ export default class App extends Component {
 
         <div className="app-content">
 
-          <section className="section-rota large-3 large-offset-0 border">
+          <section className="section-rota large-4 large-offset-0 border">
             <Rota rota={this.state.rotaAllocations}/>
           </section>
 
-          <section className="section-wheel large-show-inlineblock large-4 yellow">
+          <section className="section-wheel large-show-inlineblock large-4 border">
             <Wheel/>
           </section>
 
-          <section className="section-staff-list large-show-inlineblock large-3 border">
+          <section className="section-staff-list large-2 border">
             <StaffList
               developers={this.state.devList}
               onDevNameChange={(devKey,newDevName)=>{this.editDevName(devKey,newDevName)}}
