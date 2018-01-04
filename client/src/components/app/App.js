@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import './App.css';
 import './Grid.css';
 
+// Helpers
+import listEligible from './Helpers/selection_pool';
+import removeNullDevs from './Helpers/remove_null_devs';
+import formatQuery from './Helpers/format_query';
+
+
 import Rota from './Rota/rota.js';
 import Wheel from './Wheel/wheel.js';
 import StaffList from './StaffList/staff_list.js';
@@ -12,6 +18,12 @@ export default class App extends Component {
     super(props)
 
     this.state = {
+      currentDayID: 1,
+      yesterdaysDevs: [],
+      wheelSelection: {
+        "selectionAM": null,
+        "selectionPM": null
+      },
       rotaAllocations: [
         {
           "weekNumber": "One",
@@ -169,34 +181,56 @@ export default class App extends Component {
         }
       ]
     }
-    this.contactApi = this.contactApi.bind(this);
+
+    this.selectTwoDevelopers = this.selectTwoDevelopers.bind(this);
   }
 
-  contactApi() {
-    fetch('/api').then(res => res.json()).then(message => this.setState({message})
-    // console.log(this)
-    );
+  updateWheelSelection(selection) {
+    const wheelSelection = this.state.wheelSelection;
+
+    wheelSelection.selectionAM = selection.morning;
+    wheelSelection.selectionPM = selection.afternoon;
+
+    this.setState({wheelSelection})
+  }
+
+  selectTwoDevelopers(queryString) {
+    fetch('/api/select/'+queryString)
+    .then(res => res.json())
+    // .then(res => console.log('response',res))
+    .then(res => this.updateWheelSelection(res))
+    // .then(message => this.setState({message})
+    // );
   }
 
   editDevName(devKey, newDevName) {
-
     const currentState = this.state;
-
     const newDevList = currentState.devList.map(dev => {
       const newDev = dev;
-
       if (devKey === dev.devKey) {
         newDev.devName = newDevName;
       }
       return (newDev)
     })
-
     currentState.devList = newDevList;
-
     this.setState({currentState});
   }
 
+  selectDevs(rota, devList) {
+    const currentDayID = this.state.currentDayID;
+    // return list of devs eligible to work today
+    const eligibleDevs = removeNullDevs(currentDayID,rota,devList);
+
+    // randomize order of eligible devList
+    // --format query string
+    const ajaxQuery = formatQuery(eligibleDevs)
+
+    // --send ajax request to server
+    this.selectTwoDevelopers(ajaxQuery);
+  }
+
   render() {
+    // console.log('new stte: ', this.state);
 
     return (
       <div className="App">
@@ -212,14 +246,17 @@ export default class App extends Component {
           </section>
 
           <section className="section-wheel large-show-inlineblock large-4 border">
-            <Wheel/>
+            <Wheel
+              selections={this.state.wheelSelection}
+              onWheelSelect={() => {
+              this.selectDevs(this.state.rotaAllocations, this.state.devList)
+            }}/>
           </section>
 
           <section className="section-staff-list large-2 border">
-            <StaffList
-              developers={this.state.devList}
-              onDevNameChange={(devKey,newDevName)=>{this.editDevName(devKey,newDevName)}}
-            />
+            <StaffList developers={this.state.devList} onDevNameChange={(devKey, newDevName) => {
+              this.editDevName(devKey, newDevName)
+            }}/>
           </section>
 
         </div>

@@ -8,10 +8,10 @@ export default (props) => {
     return (
       <div key={index} className={ periodIsAM ? "period bottom-border" : "period" }>
         <div className={ periodIsAM ? "period-header AM" : "period-header PM " } >
-          <p>{period.periodTitle}</p>
+          <p>{period.periodTitle || "empty" }</p>
         </div>
         <div className="period-allocation large-12 large-show-inlineblock">
-          <p>{period.allocation}</p>
+          <p>{period.allocation || "empty" }</p>
         </div>
       </div>
     )
