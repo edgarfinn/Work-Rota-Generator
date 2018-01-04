@@ -3,19 +3,11 @@ import React from 'react';
 import './selection_wheel.css';
 
 export default(props) => {
-  console.log('SW props', props);
   const selectionAM = props.selections.selectionAM;
   const selectionPM = props.selections.selectionPM;
 
-  const selectionsEmpty = selectionAM === null && selectionPM === null;
-
-  if (!selectionsEmpty) {
-    const morningDevTitle = selectionAM.devName || selectionAM.devKey
-    const afternoonDevTitle = selectionPM.devName || selectionPM.devKey
-  }
-
-
-  console.log('selectionsEmpty', selectionsEmpty);
+  const selectionsEmpty = !props.selectionIsReady;
+  
   return (
     <div className="wheel-selection-wheel yellow">
       <p className="selection morning">

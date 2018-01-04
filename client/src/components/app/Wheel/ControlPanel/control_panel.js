@@ -22,9 +22,9 @@ export default(props) => {
 
       <Button
         name="confirm"
-        // callBack={props.onWheelSelect}}
+        callBack={props.onConfirmSelection}
         text="Confirm Selection"/>
-        
+
       <Button
         name="refresh"
         // callBack={props.onWheelSelect}}

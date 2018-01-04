@@ -3,26 +3,56 @@ import './day.css';
 
 export default (props) => {
 
-  const FullDay = props.periods.map((period, index) => {
-    const periodIsAM = period.periodTitle === "AM";
+  const generateDev = (period) => {
+    if (props.periods[period].allocation === null) {
+      return "empty"
+    }
+    else {
+      if (props.periods[period].allocation.devName === null) {
+        return props.periods[period].allocation.devKey
+      }
+      else {
+        return props.periods[period].allocation.devName
+      }
+    }
+  }
+
+  const AMDev = generateDev(0)
+  const PMDev = generateDev(1)
+
+  console.log('PMDev',PMDev);
+
+
+  const WholeDay = () => {
     return (
-      <div key={index} className={ periodIsAM ? "period bottom-border" : "period" }>
-        <div className={ periodIsAM ? "period-header AM" : "period-header PM " } >
-          <p>{period.periodTitle || "empty" }</p>
+      <div className="half-day-wrapper">
+        <div className="period bottom-border">
+          <div className="period-header AM">
+            <p>AM</p>
+          </div>
+          <div className="period-allocation large-12 large-show-inlineblock">
+            <p>{AMDev}</p>
+          </div>
         </div>
-        <div className="period-allocation large-12 large-show-inlineblock">
-          <p>{period.allocation || "empty" }</p>
+
+        <div className="period">
+          <div className="period-header PM ">
+            <p>PM</p>
+          </div>
+          <div className="period-allocation large-12 large-show-inlineblock">
+            <p>{PMDev}</p>
+          </div>
         </div>
       </div>
     )
-  })
+
+  }
 
   return (
     <div className="rota-day">
       <p className="day-title bottom-border">{props.title}</p>
-      <div className="half-day-wrapper">
-        {FullDay}
-      </div>
+        {/* {FullDay} */}
+        <WholeDay />
     </div>
   )
 }

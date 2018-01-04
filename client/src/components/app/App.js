@@ -3,9 +3,9 @@ import './App.css';
 import './Grid.css';
 
 // Helpers
-import listEligible from './Helpers/selection_pool';
 import removeNullDevs from './Helpers/remove_null_devs';
 import formatQuery from './Helpers/format_query';
+import updateRotaObject from './Helpers/update_rota';
 
 
 import Rota from './Rota/rota.js';
@@ -18,6 +18,7 @@ export default class App extends Component {
     super(props)
 
     this.state = {
+      selectionIsReady: false,
       currentDayID: 1,
       yesterdaysDevs: [],
       wheelSelection: {
@@ -185,6 +186,32 @@ export default class App extends Component {
     this.selectTwoDevelopers = this.selectTwoDevelopers.bind(this);
   }
 
+  confirmSelection() {
+    const dayID = this.state.currentDayID;
+    const rota = this.state.rotaAllocations;
+    const selection = this.state.wheelSelection;
+
+    const selectionIsReady = this.state.selectionIsReady;
+
+    // update rota if selection is ready
+    if (selectionIsReady) {
+      const newRota = updateRotaObject(dayID,rota,selection);
+
+      this.setState({
+        rotaAllocations: newRota
+      })
+
+      // increment currenDayID
+      this.setState({
+        currentDayID: this.state.currentDayID + 1
+      })
+      this.setState({
+        selectionIsReady: false
+      })
+    }
+
+    // set selectionIsReady to false again
+  }
   updateWheelSelection(selection) {
     const wheelSelection = this.state.wheelSelection;
 
@@ -192,15 +219,13 @@ export default class App extends Component {
     wheelSelection.selectionPM = selection.afternoon;
 
     this.setState({wheelSelection})
+    this.setState({selectionIsReady: true})
   }
 
   selectTwoDevelopers(queryString) {
     fetch('/api/select/'+queryString)
     .then(res => res.json())
-    // .then(res => console.log('response',res))
     .then(res => this.updateWheelSelection(res))
-    // .then(message => this.setState({message})
-    // );
   }
 
   editDevName(devKey, newDevName) {
@@ -223,14 +248,15 @@ export default class App extends Component {
 
     // randomize order of eligible devList
     // --format query string
-    const ajaxQuery = formatQuery(eligibleDevs)
+    const ajaxQuery = formatQuery(eligibleDevs);
 
     // --send ajax request to server
     this.selectTwoDevelopers(ajaxQuery);
   }
 
+
   render() {
-    // console.log('new stte: ', this.state);
+    console.log('new state: ', this.state);
 
     return (
       <div className="App">
@@ -247,10 +273,12 @@ export default class App extends Component {
 
           <section className="section-wheel large-show-inlineblock large-4 border">
             <Wheel
+              selectionIsReady={this.state.selectionIsReady}
               selections={this.state.wheelSelection}
               onWheelSelect={() => {
-              this.selectDevs(this.state.rotaAllocations, this.state.devList)
-            }}/>
+              this.selectDevs(this.state.rotaAllocations, this.state.devList)}}
+              onConfirmSelection={() => {this.confirmSelection()}}
+          />
           </section>
 
           <section className="section-staff-list large-2 border">
