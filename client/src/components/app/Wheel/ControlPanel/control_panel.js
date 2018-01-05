@@ -14,7 +14,7 @@ export default(props) => {
 
   }
   return (
-    <div className="control-panel blue">
+    <div className="control-panel">
       <Button
         name="select"
         callBack={props.onWheelSelect}
@@ -24,11 +24,6 @@ export default(props) => {
         name="confirm"
         callBack={props.onConfirmSelection}
         text="Confirm Selection"/>
-
-      <Button
-        name="refresh"
-        // callBack={props.onWheelSelect}}
-        text="Refresh Rota"/>
     </div>
   )
 }

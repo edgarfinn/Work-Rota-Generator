@@ -7,13 +7,13 @@ export default(props) => {
   const selectionPM = props.selections.selectionPM;
 
   const selectionsEmpty = !props.selectionIsReady;
-  
+
   return (
-    <div className="wheel-selection-wheel yellow">
-      <p className="selection morning">
+    <div className="wheel-selection-wheel">
+      <p className={selectionsEmpty ? "selection morning" : "selection morning selected"}>
         {selectionsEmpty ? "Select two developers" : selectionAM.devName || selectionAM.devKey }
       </p>
-      <p className="selection afternoon">
+      <p className={selectionsEmpty ? "selection afternoon" : "selection afternoon selected"}>
         {selectionsEmpty ? "using the buttons below" : selectionPM.devName || selectionPM.devKey }
       </p>
     </div>

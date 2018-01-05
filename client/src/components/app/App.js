@@ -243,23 +243,27 @@ export default class App extends Component {
   }
 
   selectDevs() {
-    const currentDayID = this.state.currentDayID;
-    const rota = this.state.rotaAllocations;
-    const devList = this.state.devList;
-    // return list of devs eligible to work today
-    const eligibleDevs = removeNullDevs(currentDayID,rota,devList);
+    if (this.state.currentDayID <= 10) {
+      const currentDayID = this.state.currentDayID;
+      const rota = this.state.rotaAllocations;
+      const devList = this.state.devList;
+      // return list of devs eligible to work today
+      const eligibleDevs = removeNullDevs(currentDayID,rota,devList);
 
-    // randomize order of eligible devList
-    // --format query string
-    const ajaxQuery = formatQuery(eligibleDevs);
+      // randomize order of eligible devList
+      // --format query string
+      const ajaxQuery = formatQuery(eligibleDevs);
 
-    // --send ajax request to server
-    this.pickTwoRandomDevs(ajaxQuery);
+      // --send ajax request to server
+      this.pickTwoRandomDevs(ajaxQuery);
+    }
+    else {
+      return null;
+    }
   }
 
 
   render() {
-    // console.log('new state: ', this.state);
 
     return (
       <div className="App">

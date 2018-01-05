@@ -1,3 +1,16 @@
 .wheel-selection-wheel {
   height: 40%;
 }
+.selection {
+  height: 20%;
+  font-size: 1.6rem;
+  font-family: monospace;
+}
+.morning {
+  margin-top: 2rem;
+}
+
+.selected {
+  color: #337ab7;
+  font-weight: bold;
+}
