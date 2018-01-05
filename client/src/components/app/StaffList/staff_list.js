@@ -5,15 +5,9 @@ import StaffItem from './StaffItem/staff_item';
 
 export default class StaffList extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
 
     const developerList = this.props.developers.map((developer, index) => {
-
-      // console.log(developer);
 
       const devKey = developer.devKey;
 

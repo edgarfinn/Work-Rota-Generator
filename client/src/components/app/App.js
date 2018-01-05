@@ -183,7 +183,7 @@ export default class App extends Component {
       ]
     }
 
-    this.selectTwoDevelopers = this.selectTwoDevelopers.bind(this);
+    this.pickTwoRandomDevs = this.pickTwoRandomDevs.bind(this);
   }
 
   confirmSelection() {
@@ -212,6 +212,7 @@ export default class App extends Component {
 
     // set selectionIsReady to false again
   }
+
   updateWheelSelection(selection) {
     const wheelSelection = this.state.wheelSelection;
 
@@ -222,7 +223,7 @@ export default class App extends Component {
     this.setState({selectionIsReady: true})
   }
 
-  selectTwoDevelopers(queryString) {
+  pickTwoRandomDevs(queryString) {
     fetch('/api/select/'+queryString)
     .then(res => res.json())
     .then(res => this.updateWheelSelection(res))
@@ -241,8 +242,10 @@ export default class App extends Component {
     this.setState({currentState});
   }
 
-  selectDevs(rota, devList) {
+  selectDevs() {
     const currentDayID = this.state.currentDayID;
+    const rota = this.state.rotaAllocations;
+    const devList = this.state.devList;
     // return list of devs eligible to work today
     const eligibleDevs = removeNullDevs(currentDayID,rota,devList);
 
@@ -251,12 +254,12 @@ export default class App extends Component {
     const ajaxQuery = formatQuery(eligibleDevs);
 
     // --send ajax request to server
-    this.selectTwoDevelopers(ajaxQuery);
+    this.pickTwoRandomDevs(ajaxQuery);
   }
 
 
   render() {
-    console.log('new state: ', this.state);
+    // console.log('new state: ', this.state);
 
     return (
       <div className="App">
@@ -275,8 +278,7 @@ export default class App extends Component {
             <Wheel
               selectionIsReady={this.state.selectionIsReady}
               selections={this.state.wheelSelection}
-              onWheelSelect={() => {
-              this.selectDevs(this.state.rotaAllocations, this.state.devList)}}
+              onWheelSelect={() => {this.selectDevs()}}
               onConfirmSelection={() => {this.confirmSelection()}}
           />
           </section>

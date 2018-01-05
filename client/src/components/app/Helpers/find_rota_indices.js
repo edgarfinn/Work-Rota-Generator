@@ -17,7 +17,7 @@ export default (dayID) => {
         case 8: return 2
         case 9: return 3
         case 10: return 4
-        default: undefined
+        default: return undefined
       }
     }
     return rotaIndices;

@@ -20,9 +20,6 @@ export default (props) => {
   const AMDev = generateDev(0)
   const PMDev = generateDev(1)
 
-  console.log('PMDev',PMDev);
-
-
   const WholeDay = () => {
     return (
       <div className="half-day-wrapper">
@@ -51,7 +48,6 @@ export default (props) => {
   return (
     <div className="rota-day">
       <p className="day-title bottom-border">{props.title}</p>
-        {/* {FullDay} */}
         <WholeDay />
     </div>
   )
