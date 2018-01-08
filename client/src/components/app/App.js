@@ -21,7 +21,8 @@ export default class App extends Component {
       selectionIsReady: false,
       currentDayID: 1,
       yesterdaysDevs: [],
-      wheelSelection: {
+      weekDevOrder: [],
+      wheelDaySelection: {
         "selectionAM": null,
         "selectionPM": null
       },
@@ -189,7 +190,7 @@ export default class App extends Component {
   confirmSelection() {
     const dayID = this.state.currentDayID;
     const rota = this.state.rotaAllocations;
-    const selection = this.state.wheelSelection;
+    const selection = this.state.wheelDaySelection;
 
     const selectionIsReady = this.state.selectionIsReady;
 
@@ -213,20 +214,20 @@ export default class App extends Component {
     // set selectionIsReady to false again
   }
 
-  updateWheelSelection(selection) {
-    const wheelSelection = this.state.wheelSelection;
+  updatewheelDaySelection(selection) {
+    const wheelDaySelection = this.state.wheelDaySelection;
 
-    wheelSelection.selectionAM = selection.morning;
-    wheelSelection.selectionPM = selection.afternoon;
+    wheelDaySelection.selectionAM = selection.morning;
+    wheelDaySelection.selectionPM = selection.afternoon;
 
-    this.setState({wheelSelection})
+    this.setState({wheelDaySelection})
     this.setState({selectionIsReady: true})
   }
 
   pickTwoRandomDevs(queryString) {
     fetch('/api/select/'+queryString)
     .then(res => res.json())
-    .then(res => this.updateWheelSelection(res))
+    .then(res => this.updatewheelDaySelection(res))
   }
 
   editDevName(devKey, newDevName) {
@@ -281,7 +282,7 @@ export default class App extends Component {
           <section className="section-wheel large-show-inlineblock large-4 border">
             <Wheel
               selectionIsReady={this.state.selectionIsReady}
-              selections={this.state.wheelSelection}
+              selections={this.state.wheelDaySelection}
               onWheelSelect={() => {this.selectDevs()}}
               onConfirmSelection={() => {this.confirmSelection()}}
           />
