@@ -15,9 +15,9 @@ export default (currentDayID, rota, devList) => {
     // console.log('devList',devList);
 
     const canWork = (devKey,rota,devList) => {
-      // return didntWorkTwoShifts(devKey,rota,devList) && didntWorkYesterday(currentDayID,devKey,rota,devList);
+      return didntWorkTwoShifts(devKey,rota,devList) && didntWorkYesterday(currentDayID,devKey,rota,devList);
 
-      return didntWorkYesterday(currentDayID,devKey,rota,devList);
+      // return didntWorkYesterday(currentDayID,devKey,rota,devList);
     }
 
 

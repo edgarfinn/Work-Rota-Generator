@@ -1,8 +1,8 @@
 export default (devList) => {
 
   const stringDevList = JSON.stringify(devList);
-  const randomiseQS = "?" + stringDevList
+  const randomisedQS = "?" + stringDevList
 
-  return randomiseQS;
+  return randomisedQS;
 
 }

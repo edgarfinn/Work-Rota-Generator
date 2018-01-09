@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Put all API endpoints under '/api'
-app.get('/api/select', (req, res) => {
+app.get('/api/randomise', (req, res) => {
 
   const queryString = decodeURI(req.url);
 
@@ -34,15 +34,9 @@ app.get('/api/select', (req, res) => {
   }
   // shuffle devList
   const shuffledDevList = shuffle(devList);
-  
-  // select first Two developers from list
-  const selectedDevs = {
-    morning: shuffledDevList[0],
-    afternoon: shuffledDevList[1]
-  };
 
   // Return
-  res.json(selectedDevs);
+  res.json(shuffledDevList);
 });
 
 // "Catchall handler: send React index.html for any other requests than above"
