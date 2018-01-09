@@ -15,6 +15,7 @@ export default class Wheel extends Component {
         <SelectionWheel
           selections={this.props.selections}
           selectionIsReady={this.props.selectionIsReady}
+          devList={this.props.devList}
         />
         <ControlPanel
           onWheelSelect={this.props.onWheelSelect}

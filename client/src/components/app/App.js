@@ -5,7 +5,7 @@ import './Grid.css';
 // Helpers
 import removeNullDevs from './Helpers/remove_null_devs';
 import formatQuery from './Helpers/format_query';
-import updateRotaObject from './Helpers/update_rota';
+import updateRotaObject from './Helpers/update_rota_object';
 
 
 import Rota from './Rota/rota.js';
@@ -21,8 +21,8 @@ export default class App extends Component {
       selectionIsReady: false,
       currentDayID: 1,
       yesterdaysDevs: [],
-      weekDevOrder: [],
-      wheelDaySelection: {
+      weekDevListOrder: [],
+      todaysDevSelection: {
         "selectionAM": null,
         "selectionPM": null
       },
@@ -184,51 +184,20 @@ export default class App extends Component {
       ]
     }
 
-    this.pickTwoRandomDevs = this.pickTwoRandomDevs.bind(this);
+    this.randomiseDevListOrder = this.randomiseDevListOrder.bind(this);
   }
 
-  confirmSelection() {
-    const dayID = this.state.currentDayID;
-    const rota = this.state.rotaAllocations;
-    const selection = this.state.wheelDaySelection;
+  updatetodaysDevSelection(todaysDevs) {
+    console.log("todaysDevs", todaysDevs);
+    const todaysDevSelection = this.state.todaysDevSelection;
 
-    const selectionIsReady = this.state.selectionIsReady;
+    todaysDevSelection.selectionAM = todaysDevs.morning;
+    todaysDevSelection.selectionPM = todaysDevs.afternoon;
 
-    // update rota if selection is ready
-    if (selectionIsReady) {
-      const newRota = updateRotaObject(dayID,rota,selection);
+    // this.setState({todaysDevSelection})
 
-      this.setState({
-        rotaAllocations: newRota
-      })
-
-      // increment currenDayID
-      this.setState({
-        currentDayID: this.state.currentDayID + 1
-      })
-      this.setState({
-        selectionIsReady: false
-      })
-    }
-
-    // set selectionIsReady to false again
   }
 
-  updatewheelDaySelection(selection) {
-    const wheelDaySelection = this.state.wheelDaySelection;
-
-    wheelDaySelection.selectionAM = selection.morning;
-    wheelDaySelection.selectionPM = selection.afternoon;
-
-    this.setState({wheelDaySelection})
-    this.setState({selectionIsReady: true})
-  }
-
-  pickTwoRandomDevs(queryString) {
-    fetch('/api/select/'+queryString)
-    .then(res => res.json())
-    .then(res => this.updatewheelDaySelection(res))
-  }
 
   editDevName(devKey, newDevName) {
     const currentState = this.state;
@@ -263,8 +232,75 @@ export default class App extends Component {
     }
   }
 
+  confirmSelection() {
+    const dayID = this.state.currentDayID;
+    const rota = this.state.rotaAllocations;
+    const selection = this.state.todaysDevSelection;
+
+    const selectionIsReady = this.state.selectionIsReady;
+
+    // update rota if selection is ready
+    if (selectionIsReady) {
+      const newRota = updateRotaObject(dayID,rota,selection);
+
+      this.setState({
+        rotaAllocations: newRota
+      })
+
+      // increment currenDayID
+      this.setState({
+        currentDayID: this.state.currentDayID + 1
+      })
+      this.setState({
+        selectionIsReady: false
+      })
+    }
+    // set selectionIsReady to false again
+  }
+
+  randomiseDevListOrder(queryString) {
+    fetch('/api/randomise/'+queryString)
+    .then(res => res.json())
+    .then(res => {
+      const todaysDevs = {
+        morning: res[0],
+        afternoon: res[1]
+      }
+      this.setState({
+        todaysDevSelection: todaysDevs,
+        selectionIsReady: true
+      })
+    })
+
+    .catch((err) => {
+      if (err) {
+        console.log('randomiseDevListOrder Error: ' + err);
+        return;
+      }
+    })
+  }
+
+  updateRota() {
+    const dayID = this.state.currentDayID;
+    const rota = this.state.rotaAllocations;
+    const selection = {
+      selectionAM: this.state.weekDevListOrder[0],
+      selectionPM: this.state.weekDevListOrder[1]
+    };
+  }
+
+  selectTodaysDevs() {
+    if (this.state.weekDevListOrder.length < 2) {
+      const devList = this.state.devList;
+      const ajaxQuery = formatQuery(devList);
+      this.randomiseDevListOrder(ajaxQuery);
+    }
+    this.updateRota();
+
+  }
 
   render() {
+    console.log('new state', this.state);
 
     return (
       <div className="App">
@@ -282,9 +318,9 @@ export default class App extends Component {
           <section className="section-wheel large-show-inlineblock large-4 border">
             <Wheel
               selectionIsReady={this.state.selectionIsReady}
-              selections={this.state.wheelDaySelection}
-              onWheelSelect={() => {this.selectDevs()}}
-              onConfirmSelection={() => {this.confirmSelection()}}
+              selections={this.state.todaysDevSelection}
+              devList={this.state.devList}
+              onWheelSelect={() => {this.selectTodaysDevs()}}
           />
           </section>
 
