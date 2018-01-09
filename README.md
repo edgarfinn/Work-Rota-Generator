@@ -11,3 +11,7 @@ There are three specifications:
 - No person can work consecutive half-day shifts
 - No person can work shifts on consecutive days
 - Everyone has to work one full day over two weeks
+
+## Design layout
+
+A (very rough) HTML prototype layout was initially created to test how well the intended layout would display for desktop, this prototype [can be previewed here](https://edgarfinn.github.io/BAU-rota-prototype/)
