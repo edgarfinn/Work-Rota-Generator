@@ -19,11 +19,6 @@ export default(props) => {
         name="select"
         callBack={props.onWheelSelect}
         text="Select Two Developers"/>
-
-      <Button
-        name="confirm"
-        callBack={props.onConfirmSelection}
-        text="Confirm Selection"/>
     </div>
   )
 }

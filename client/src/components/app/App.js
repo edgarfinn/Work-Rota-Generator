@@ -187,18 +187,6 @@ export default class App extends Component {
     this.randomiseDevListOrder = this.randomiseDevListOrder.bind(this);
   }
 
-  updatetodaysDevSelection(todaysDevs) {
-    console.log("todaysDevs", todaysDevs);
-    const todaysDevSelection = this.state.todaysDevSelection;
-
-    todaysDevSelection.selectionAM = todaysDevs.morning;
-    todaysDevSelection.selectionPM = todaysDevs.afternoon;
-
-    // this.setState({todaysDevSelection})
-
-  }
-
-
   editDevName(devKey, newDevName) {
     const currentState = this.state;
     const newDevList = currentState.devList.map(dev => {
@@ -210,52 +198,6 @@ export default class App extends Component {
     })
     currentState.devList = newDevList;
     this.setState({currentState});
-  }
-
-  selectDevs() {
-    if (this.state.currentDayID <= 10) {
-      const currentDayID = this.state.currentDayID;
-      const rota = this.state.rotaAllocations;
-      const devList = this.state.devList;
-      // return list of devs eligible to work today
-      const eligibleDevs = removeNullDevs(currentDayID,rota,devList);
-
-      // randomize order of eligible devList
-      // --format query string
-      const ajaxQuery = formatQuery(eligibleDevs);
-
-      // --send ajax request to server
-      this.pickTwoRandomDevs(ajaxQuery);
-    }
-    else {
-      return null;
-    }
-  }
-
-  confirmSelection() {
-    const dayID = this.state.currentDayID;
-    const rota = this.state.rotaAllocations;
-    const selection = this.state.todaysDevSelection;
-
-    const selectionIsReady = this.state.selectionIsReady;
-
-    // update rota if selection is ready
-    if (selectionIsReady) {
-      const newRota = updateRotaObject(dayID,rota,selection);
-
-      this.setState({
-        rotaAllocations: newRota
-      })
-
-      // increment currenDayID
-      this.setState({
-        currentDayID: this.state.currentDayID + 1
-      })
-      this.setState({
-        selectionIsReady: false
-      })
-    }
-    // set selectionIsReady to false again
   }
 
   randomiseDevListOrder(queryString) {
@@ -270,15 +212,14 @@ export default class App extends Component {
       const dayID = this.state.currentDayID;
       const rota = this.state.rotaAllocations;
       const newRota = updateRotaObject(dayID,rota,todaysDevs);
-      console.log('newRota',newRota);
-      this.setState({
+      this.setState((prevState, props) => ({
         todaysDevSelection: todaysDevs,
         selectionIsReady: true,
         weekDevListOrder: newDevList,
-        rotaAllocations: newRota
-      })
+        rotaAllocations: newRota,
+        currentDayID: prevState.currentDayID + 1
+      }))
     })
-
     .catch((err) => {
       if (err) {
         console.log('randomiseDevListOrder Error: ' + err);
@@ -288,12 +229,29 @@ export default class App extends Component {
   }
 
   updateRota() {
+  // set todaysDevSelection to the first two devs from weekDevListOrder
+  // update rota
+  // remove first two items from weekDevListOrder
+  // increment currentDayID
+    const weekDevListOrder = this.state.weekDevListOrder;
+    console.log(weekDevListOrder);
+    const newDevList = weekDevListOrder.slice(2,weekDevListOrder.length);
     const dayID = this.state.currentDayID;
     const rota = this.state.rotaAllocations;
-    const selection = {
-      selectionAM: this.state.weekDevListOrder[0],
-      selectionPM: this.state.weekDevListOrder[1]
-    };
+    const todaysDevs = {
+      morning: this.state.weekDevListOrder[0],
+      afternoon: this.state.weekDevListOrder[1],
+    }
+    const newRota = updateRotaObject(dayID,rota,todaysDevs);
+    this.setState((prevState, props) => ({
+      todaysDevSelection: {
+        morning: prevState.weekDevListOrder[0],
+        afternoon: prevState.weekDevListOrder[1]
+      },
+      weekDevListOrder: newDevList,
+      rotaAllocations: newRota,
+      currentDayID: prevState.currentDayID + 1
+    }))
   }
 
   selectTodaysDevs() {
@@ -301,13 +259,13 @@ export default class App extends Component {
       const devList = this.state.devList;
       const ajaxQuery = formatQuery(devList);
       this.randomiseDevListOrder(ajaxQuery);
+    } else {
+      this.updateRota();
     }
-    this.updateRota();
 
   }
 
   render() {
-    console.log('new state', this.state);
 
     return (
       <div className="App">
