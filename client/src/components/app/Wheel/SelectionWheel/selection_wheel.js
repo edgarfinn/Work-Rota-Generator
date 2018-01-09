@@ -5,8 +5,6 @@ import './selection_wheel.css';
 
 export default (props) => {
 
-  console.log(props);
-
   const AMDev = () => {
     if (props.selectionIsReady) {
       const AMDevKey = props.selections.morning.devKey;

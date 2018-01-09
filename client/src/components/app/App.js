@@ -266,9 +266,16 @@ export default class App extends Component {
         morning: res[0],
         afternoon: res[1]
       }
+      const newDevList = res.slice(2,res.length);
+      const dayID = this.state.currentDayID;
+      const rota = this.state.rotaAllocations;
+      const newRota = updateRotaObject(dayID,rota,todaysDevs);
+      console.log('newRota',newRota);
       this.setState({
         todaysDevSelection: todaysDevs,
-        selectionIsReady: true
+        selectionIsReady: true,
+        weekDevListOrder: newDevList,
+        rotaAllocations: newRota
       })
     })
 
