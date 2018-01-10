@@ -19,7 +19,7 @@ export default (props) => {
 
 
   return (
-    <div className="rota-week large-6 large-show-inlineblock fill-height">
+    <div className={"rota-week large-6 large-show-inlineblock fill-height" + " week-"+props.weekRota.weekNumber.toLowerCase()}>
       <h3 className="week-header">{ "Week " + props.weekRota.weekNumber }</h3>
       <div className="days-wrapper">
         {DayList}

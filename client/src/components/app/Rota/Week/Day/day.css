@@ -4,13 +4,14 @@
   position: relative;
   height: 20%;
   box-sizing: border-box;
-  border: 1px solid lightgrey;
 }
 
 .day-title {
   padding: 0.1em;
   max-height: 20%;
   min-height: 18px;
+  color: white;
+  background-color: #337ab7;
 }
 
 .bottom-border {

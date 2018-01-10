@@ -2,3 +2,7 @@
   height: 96%;
   box-sizing: border-box;
 }
+
+.week-one .rota-day {
+  border-right: 1px solid lightgrey;
+}
