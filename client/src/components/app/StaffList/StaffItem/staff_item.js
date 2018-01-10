@@ -14,7 +14,7 @@ export default class StaffItem extends Component {
   }
 
   onNameClick(event) {
-    console.log(this.setState({editing: true}));
+    this.setState({editing: true});
 
   }
 
@@ -33,28 +33,17 @@ export default class StaffItem extends Component {
     this.setState({editing: false})
   }
 
-
-
   render() {
     const nameTag = this.props.devName || this.props.devKey;
 
     return (
       <li className="developer-list-item">
         <div>
-          {this.state.editing ?
-            <form
-              className="developer-name"
-              onSubmit={event => this.onFormSubmit(event)}
-              >
-              <input
-                className="name-input"
-                type="text"
-                value={this.state.developerName}
-                onChange={event => this.onInputChange(event)}
-              />
-            </form>
-            :
-            <div className="developer-name">
+          {this.state.editing
+            ? <form className="developer-name" onSubmit={event => this.onFormSubmit(event)}>
+                <input className="name-input" type="text" value={this.state.developerName} onChange={event => this.onInputChange(event)}/>
+              </form>
+            : <div className="developer-name">
               <p onClick={event => this.onNameClick(event)}>
                 {nameTag}
               </p>

@@ -1,8 +1,11 @@
 .developer-list-item {
   width: 100%;
-  border-bottom: 1px solid grey;
+  box-sizing: border-box;
+
+  /* border-bottom: 1px solid pink; */
 }
+
 .developer-name {
-  border-top: 2px solid lightgrey;
+  /* border-top: 2px solid lightgrey; */
   padding: 1em;
 }

@@ -1,3 +1,15 @@
-.developer-list {
-  border: 1px solid grey;
+
+.developer-list li:not(:first-child):not(:last-child) {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.developer-list li:first-child {
+  border-top: 4px solid black;
+  border-bottom: 2px solid black;
+}
+
+.developer-list li:last-child {
+  border-top: 2px solid black;
+  border-bottom: 4px solid black;
 }

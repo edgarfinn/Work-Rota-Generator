@@ -4,7 +4,6 @@ import Week from './Week/week';
 
 export default (props) => {
   const fullRota = props.rota;
-  // console.log(fullRota);
 
   return (
     <div className="rota fill-height">
@@ -21,5 +20,4 @@ export default (props) => {
       </div>
     </div>
   )
-
 }

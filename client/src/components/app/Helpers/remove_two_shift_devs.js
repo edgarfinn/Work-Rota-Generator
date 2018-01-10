@@ -43,9 +43,6 @@ export default (devID,rota,devList) => {
   const twoShiftDevs = twoShiftDevsList.filter((dev, index) => {
     return twoShiftDevsList.indexOf(dev) === index;
   })
-  // console.log(devID + " didntworkTwoShifts")
-  // console.log(twoShiftDevs.indexOf(devID) === -1);
-  // console.log("-------------------------");
 
   // if dev is in twoShiftDevs array return false
   const eligibleDevs = devList.filter((dev) => {

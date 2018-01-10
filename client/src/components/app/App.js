@@ -8,7 +8,6 @@ import formatQuery from './Helpers/format_query';
 import updateRotaObject from './Helpers/update_rota_object';
 import preventFridayRepeats from './Helpers/prevent_friday_repeats'
 
-
 import Rota from './Rota/rota.js';
 import Wheel from './Wheel/wheel.js';
 import StaffList from './StaffList/staff_list.js';
@@ -202,23 +201,23 @@ export default class App extends Component {
   }
 
   randomiseDevListOrder(queryString) {
-    fetch('/api/randomise/'+queryString)
-    .then(res => res.json())
-    .then(res => {
-      return this.state.currentDayID > 2 ?
-      preventFridayRepeats(res, this.state.fridayDevs) :
-      res
-    })
-    .then(res => {
+    fetch('/api/randomise/' + queryString).then(res => res.json()).then(res => {
+      return this.state.currentDayID > 2
+        ? preventFridayRepeats(res, this.state.fridayDevs)
+        : res
+    }).then(res => {
       const todaysDevs = {
         morning: res[0],
         afternoon: res[1]
       }
-      const newFridayDevs = [res[res.length -1].devKey, res[res.length -2].devKey]
-      const newWeekDevOrder = res.slice(2,res.length);
+      const newFridayDevs = [
+        res[res.length - 1].devKey,
+        res[res.length - 2].devKey
+      ]
+      const newWeekDevOrder = res.slice(2, res.length);
       const dayID = this.state.currentDayID;
       const rota = this.state.rotaAllocations;
-      const newRota = updateRotaObject(dayID,rota,todaysDevs);
+      const newRota = updateRotaObject(dayID, rota, todaysDevs);
       this.setState((prevState, props) => ({
         todaysDevSelection: todaysDevs,
         selectionIsReady: true,
@@ -227,8 +226,7 @@ export default class App extends Component {
         currentDayID: prevState.currentDayID + 1,
         fridayDevs: newFridayDevs
       }))
-    })
-    .catch((err) => {
+    }).catch((err) => {
       if (err) {
         console.log('randomiseDevListOrder Error: ' + err);
         return;
@@ -237,18 +235,18 @@ export default class App extends Component {
   }
 
   updateRota() {
-  // remove first two items from weekDevListOrder
+    // remove first two items from weekDevListOrder
     const weekDevListOrder = this.state.weekDevListOrder;
-    const newDevListOrder = weekDevListOrder.slice(2,weekDevListOrder.length);
+    const newDevListOrder = weekDevListOrder.slice(2, weekDevListOrder.length);
     const dayID = this.state.currentDayID;
     const rota = this.state.rotaAllocations;
     // set todaysDevSelection to the first two devs from weekDevListOrder
     const todaysDevs = {
       morning: this.state.weekDevListOrder[0],
-      afternoon: this.state.weekDevListOrder[1],
+      afternoon: this.state.weekDevListOrder[1]
     }
     // update rota object
-    const newRota = updateRotaObject(dayID,rota,todaysDevs);
+    const newRota = updateRotaObject(dayID, rota, todaysDevs);
     // increment currentDayID
     this.setState((prevState, props) => ({
       todaysDevSelection: {
@@ -273,7 +271,6 @@ export default class App extends Component {
   }
 
   render() {
-    // console.log('new state: ', this.state);
 
     return (
       <div className="App">
@@ -289,12 +286,9 @@ export default class App extends Component {
           </section>
 
           <section className="section-wheel large-show-inlineblock large-4 border">
-            <Wheel
-              selectionIsReady={this.state.selectionIsReady}
-              selections={this.state.todaysDevSelection}
-              devList={this.state.devList}
-              onWheelSelect={() => {this.selectTodaysDevs()}}
-          />
+            <Wheel selectionIsReady={this.state.selectionIsReady} selections={this.state.todaysDevSelection} devList={this.state.devList} onWheelSelect={() => {
+              this.selectTodaysDevs()
+            }}/>
           </section>
 
           <section className="section-staff-list large-2 border">

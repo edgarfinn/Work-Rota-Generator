@@ -4,7 +4,6 @@ import Day from './Day/day';
 
 export default (props) => {
 
-  // console.log(props.weekRota.schedule);
   const schedule = props.weekRota.schedule;
 
   const DayList = schedule.map((day, index) => {

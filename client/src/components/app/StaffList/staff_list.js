@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './staff_list.css';
 
 import StaffItem from './StaffItem/staff_item';
@@ -12,18 +12,15 @@ export default class StaffList extends Component {
       const devKey = developer.devKey;
 
       return (
-        <StaffItem
-        key={devKey}
-        devKey={devKey}
-        devName={developer.devName}
-        onDevNameChange={this.props.onDevNameChange}
-      />
+        <StaffItem key={devKey} devKey={devKey} devName={developer.devName} onDevNameChange={this.props.onDevNameChange}/>
       )
     })
 
     return (
       <div className="staff-list">
-        <header className="section-header"><h2>Staff List</h2></header>
+        <header className="section-header">
+          <h2>Staff List</h2>
+        </header>
         <ul className="developer-list">
           {developerList}
         </ul>
