@@ -6,6 +6,7 @@ import './Grid.css';
 import removeNullDevs from './Helpers/remove_null_devs';
 import formatQuery from './Helpers/format_query';
 import updateRotaObject from './Helpers/update_rota_object';
+import preventFridayRepeats from './Helpers/prevent_friday_repeats'
 
 
 import Rota from './Rota/rota.js';
@@ -20,7 +21,7 @@ export default class App extends Component {
     this.state = {
       selectionIsReady: false,
       currentDayID: 1,
-      yesterdaysDevs: [],
+      fridayDevs: [],
       weekDevListOrder: [],
       todaysDevSelection: {
         "selectionAM": null,
@@ -204,20 +205,27 @@ export default class App extends Component {
     fetch('/api/randomise/'+queryString)
     .then(res => res.json())
     .then(res => {
+      return this.state.currentDayID > 2 ?
+      preventFridayRepeats(res, this.state.fridayDevs) :
+      res
+    })
+    .then(res => {
       const todaysDevs = {
         morning: res[0],
         afternoon: res[1]
       }
-      const newDevList = res.slice(2,res.length);
+      const newFridayDevs = [res[res.length -1].devKey, res[res.length -2].devKey]
+      const newWeekDevOrder = res.slice(2,res.length);
       const dayID = this.state.currentDayID;
       const rota = this.state.rotaAllocations;
       const newRota = updateRotaObject(dayID,rota,todaysDevs);
       this.setState((prevState, props) => ({
         todaysDevSelection: todaysDevs,
         selectionIsReady: true,
-        weekDevListOrder: newDevList,
+        weekDevListOrder: newWeekDevOrder,
         rotaAllocations: newRota,
-        currentDayID: prevState.currentDayID + 1
+        currentDayID: prevState.currentDayID + 1,
+        fridayDevs: newFridayDevs
       }))
     })
     .catch((err) => {
@@ -229,26 +237,25 @@ export default class App extends Component {
   }
 
   updateRota() {
-  // set todaysDevSelection to the first two devs from weekDevListOrder
-  // update rota
   // remove first two items from weekDevListOrder
-  // increment currentDayID
     const weekDevListOrder = this.state.weekDevListOrder;
-    console.log(weekDevListOrder);
-    const newDevList = weekDevListOrder.slice(2,weekDevListOrder.length);
+    const newDevListOrder = weekDevListOrder.slice(2,weekDevListOrder.length);
     const dayID = this.state.currentDayID;
     const rota = this.state.rotaAllocations;
+    // set todaysDevSelection to the first two devs from weekDevListOrder
     const todaysDevs = {
       morning: this.state.weekDevListOrder[0],
       afternoon: this.state.weekDevListOrder[1],
     }
+    // update rota object
     const newRota = updateRotaObject(dayID,rota,todaysDevs);
+    // increment currentDayID
     this.setState((prevState, props) => ({
       todaysDevSelection: {
         morning: prevState.weekDevListOrder[0],
         afternoon: prevState.weekDevListOrder[1]
       },
-      weekDevListOrder: newDevList,
+      weekDevListOrder: newDevListOrder,
       rotaAllocations: newRota,
       currentDayID: prevState.currentDayID + 1
     }))
@@ -266,6 +273,7 @@ export default class App extends Component {
   }
 
   render() {
+    // console.log('new state: ', this.state);
 
     return (
       <div className="App">
