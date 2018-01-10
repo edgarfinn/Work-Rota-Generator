@@ -429,6 +429,7 @@ export default class App extends Component {
               devList={this.state.devList}
               onWheelSelect={() => {this.selectTodaysDevs()}}
               onRefresh={() => {this.refreshRota()}}
+              dayID={this.state.currentDayID}
             />
           </section>
 

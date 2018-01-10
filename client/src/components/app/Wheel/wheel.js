@@ -20,7 +20,9 @@ export default class Wheel extends Component {
         <ControlPanel
           onWheelSelect={this.props.onWheelSelect}
           onRefresh={this.props.onRefresh}
+          dayID={this.props.dayID}
         />
+
       </div>
     )
   }

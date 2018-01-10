@@ -11,18 +11,24 @@ export default(props) => {
         </div>
       </div>
     )
-
   }
+  
   return (
     <div className="control-panel">
-      <Button
-        name="select"
-        callBack={props.onWheelSelect}
-        text="Select Two Developers"/>
-      <Button
-        name="refresh"
-        callBack={props.onRefresh}
-        text="Refresh Rota"/>
+
+      {props.dayID <= 10 &&
+        <Button
+          name="select"
+          callBack={props.onWheelSelect}
+          text="Select Two Developers"/>
+      }
+
+        {props.dayID > 1 &&
+          <Button
+            name="refresh"
+            callBack={props.onRefresh}
+            text="Refresh Rota"/>
+        }
     </div>
   )
 }
