@@ -26,6 +26,129 @@ export default class App extends Component {
         "selectionAM": null,
         "selectionPM": null
       },
+      rotaDefault: [
+        {
+          "weekNumber": "One",
+          "schedule": [
+            {
+              "dayTitle": "Monday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Tuesday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Wednesday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Thursday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Friday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }
+          ]
+        }, {
+          "weekNumber": "Two",
+          "schedule": [
+            {
+              "dayTitle": "Monday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Tuesday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Wednesday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Thursday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }, {
+              "dayTitle": "Friday",
+              "periods": [
+                {
+                  "periodTitle": "AM",
+                  "allocation": null
+                }, {
+                  "periodTitle": "PM",
+                  "allocation": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       rotaAllocations: [
         {
           "weekNumber": "One",
@@ -267,11 +390,25 @@ export default class App extends Component {
     } else {
       this.updateRota();
     }
+  }
 
+  refreshRota() {
+    this.setState((prevState,props) => ({
+      selectionIsReady: false,
+      currentDayID: 1,
+      fridayDevs: [],
+      weekDevListOrder: [],
+      todaysDevSelection: {
+        "selectionAM": null,
+        "selectionPM": null
+      },
+      rotaAllocations: prevState.rotaDefault,
+    }))
   }
 
   render() {
 
+    console.log('new state',this.state);
     return (
       <div className="App">
 
@@ -286,9 +423,13 @@ export default class App extends Component {
           </section>
 
           <section className="section-wheel large-show-inlineblock large-4 border">
-            <Wheel selectionIsReady={this.state.selectionIsReady} selections={this.state.todaysDevSelection} devList={this.state.devList} onWheelSelect={() => {
-              this.selectTodaysDevs()
-            }}/>
+            <Wheel
+              selectionIsReady={this.state.selectionIsReady}
+              selections={this.state.todaysDevSelection}
+              devList={this.state.devList}
+              onWheelSelect={() => {this.selectTodaysDevs()}}
+              onRefresh={() => {this.refreshRota()}}
+            />
           </section>
 
           <section className="section-staff-list large-2 border">

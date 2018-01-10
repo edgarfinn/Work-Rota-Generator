@@ -19,7 +19,7 @@ export default class Wheel extends Component {
         />
         <ControlPanel
           onWheelSelect={this.props.onWheelSelect}
-          onConfirmSelection={this.props.onConfirmSelection}
+          onRefresh={this.props.onRefresh}
         />
       </div>
     )

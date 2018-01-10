@@ -19,6 +19,10 @@ export default(props) => {
         name="select"
         callBack={props.onWheelSelect}
         text="Select Two Developers"/>
+      <Button
+        name="refresh"
+        callBack={props.onRefresh}
+        text="Refresh Rota"/>
     </div>
   )
 }
