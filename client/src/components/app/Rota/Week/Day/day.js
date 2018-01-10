@@ -1,24 +1,27 @@
 import React from 'react';
+import getDevName from '../../../Helpers/lookup_dev';
+
 import './day.css';
 
 export default (props) => {
 
-  const generateDev = (period) => {
-    if (props.periods[period].allocation === null) {
-      return "empty"
+  const AMDev = () => {
+    if(props.periods[0].allocation !== null) {
+      const AMDevKey = props.periods[0].allocation.devKey;
+      return getDevName(AMDevKey, props.devList) || AMDevKey;
     }
     else {
-      if (props.periods[period].allocation.devName === null) {
-        return props.periods[period].allocation.devKey
-      }
-      else {
-        return props.periods[period].allocation.devName
-      }
+      return "empty"
     }
   }
-
-  const AMDev = generateDev(0)
-  const PMDev = generateDev(1)
+  const PMDev = () => {
+    if(props.periods[1].allocation !== null) {
+      const PMDevKey = props.periods[1].allocation.devKey;
+      return getDevName(PMDevKey, props.devList) || PMDevKey;
+    } else {
+      return "empty"
+    }
+  }
 
   const WholeDay = () => {
     return (
@@ -28,7 +31,7 @@ export default (props) => {
             <p>AM</p>
           </div>
           <div className="period-allocation large-12 large-show-inlineblock">
-            <p>{AMDev}</p>
+            <p><AMDev /></p>
           </div>
         </div>
 
@@ -37,7 +40,7 @@ export default (props) => {
             <p>PM</p>
           </div>
           <div className="period-allocation large-12 large-show-inlineblock">
-            <p>{PMDev}</p>
+            <p><PMDev /></p>
           </div>
         </div>
       </div>

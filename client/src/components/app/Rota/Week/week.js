@@ -12,9 +12,9 @@ export default (props) => {
         key={index}
         title={day.dayTitle}
         periods={day.periods}
+        devList={props.devList}
       />
     )
-
 })
 
 

@@ -13,9 +13,11 @@ export default (props) => {
       <div className="weeks-wrapper">
         <Week
           weekRota={fullRota[0]}
+          devList={props.devList}
         />
         <Week
           weekRota={fullRota[1]}
+          devList={props.devList}
         />
       </div>
     </div>

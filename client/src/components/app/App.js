@@ -3,7 +3,6 @@ import './App.css';
 import './Grid.css';
 
 // Helpers
-import removeNullDevs from './Helpers/remove_null_devs';
 import formatQuery from './Helpers/format_query';
 import updateRotaObject from './Helpers/update_rota_object';
 import preventFridayRepeats from './Helpers/prevent_friday_repeats'
@@ -392,6 +391,7 @@ export default class App extends Component {
     }
   }
 
+
   refreshRota() {
     this.setState((prevState,props) => ({
       selectionIsReady: false,
@@ -419,7 +419,10 @@ export default class App extends Component {
         <div className="app-content">
 
           <section className="section-rota large-4 large-offset-0 border">
-            <Rota rota={this.state.rotaAllocations}/>
+            <Rota
+              rota={this.state.rotaAllocations}
+              devList={this.state.devList}
+            />
           </section>
 
           <section className="section-wheel large-show-inlineblock large-4 border">

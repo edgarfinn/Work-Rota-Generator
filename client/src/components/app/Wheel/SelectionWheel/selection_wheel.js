@@ -1,5 +1,5 @@
 import React from 'react';
-import getDevName from '../../Helpers/lookup_dev'
+import getDevName from '../../Helpers/lookup_dev';
 
 import './selection_wheel.css';
 
